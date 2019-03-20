@@ -10,15 +10,16 @@ function disPlayMovies(){
 
 
 
-        movies.forEach(({title, rating, id}) => {
-            console.log(`id#${id} - ${title} - rating: ${rating}`);
+        movies.forEach(({title, rating, id, details}) => {
+            console.log(`id#${id} - ${title} - rating: ${rating}- ${details}`);
 
 
             $('.loading').remove();
             $('.container').append("<div id='" + id + "'>" +
                 'id: ' + id + ', ' +
                 'title: ' + title + ', ' +
-                'rating: ' + rating +
+                'rating: ' + rating + ', ' +
+                'details: ' + details +
                 '</div>');
 
 
@@ -39,6 +40,21 @@ function disPlayMovies(){
                     disPlayMovies();
 
                 })
+
+                $('#edit').click(function () {
+
+                    console.log('/api/movies/' + details);
+                    const options = {
+                        method: 'PUT',
+
+                    };
+                    fetch('/api/movies/' + details, options)
+                        .then(response => console.log(response))
+                        .catch(error => console.log(error));
+
+                    disPlayMovies();
+
+                });
             })
 
         });
@@ -58,7 +74,7 @@ function disPlayMovies(){
 function addMovie() {
 
 
-    const movieTitleRatings = {title: $('#title').val(), rating: $('#rating').val()};
+    const movieTitleRatings = {title: $('#title').val(), rating: $('#rating').val(), details: $('#details').val()};
     const url = '/api/movies';
     const options = {
         method: 'POST',

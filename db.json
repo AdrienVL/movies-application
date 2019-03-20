@@ -2,13 +2,15 @@
   "movies": [
     {
       "title": "Iron Man",
-      "rating": "3",
-      "id": 2
+      "rating": "5",
+      "details": "Tony Stark Will save the day",
+      "id": 1
     },
     {
-      "title": "Incredibles",
+      "title": "test",
       "rating": "5",
-      "id": 3
+      "details": "test details",
+      "id": 2
     }
   ]
 }
