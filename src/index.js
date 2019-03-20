@@ -43,12 +43,17 @@ function disPlayMovies(){
 
                 $('#edit').click(function () {
 
-                    console.log('/api/movies/' + details);
+                    console.log('/api/movies/');
+                    const detailsInput = {details: $('#details').val()};
                     const options = {
                         method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(detailsInput),
 
                     };
-                    fetch('/api/movies/' + details, options)
+                    fetch('/api/movies/'+id, options)
                         .then(response => console.log(response))
                         .catch(error => console.log(error));
 
@@ -74,17 +79,24 @@ function disPlayMovies(){
 function addMovie() {
 
 
-    const movieTitleRatings = {title: $('#title').val(), rating: $('#rating').val(), details: $('#details').val()};
+
+    const movieTitleRatingsDetails = {title: $('#title').val(), rating: $('#rating').val(), details: $('#details').val()};
     const url = '/api/movies';
     const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(movieTitleRatings),
+        body: JSON.stringify(movieTitleRatingsDetails),
     };
     fetch(url, options)
-        .then(response => console.log(response))
+        .then(response => {
+            $('#title').val("");
+            $('#rating').val("");
+            $('#details').val("");
+
+            console.log(response)
+        })
         .catch(error => console.log(error));
 
 
@@ -104,6 +116,7 @@ disPlayMovies();
 //------------------------------------------------------------------------------------------------Buttons--------------------------------------------------------------------------------//
 
 $('#submit').click(function () {
+
 
     return addMovie();
 });
