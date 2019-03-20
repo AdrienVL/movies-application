@@ -4,10 +4,11 @@ const {getMovies} = require('./api.js');
 
 
 
+
 function disPlayMovies(){
 
 
-    $('.container').html("");
+
     getMovies().then((movies) => {
 
 
@@ -52,6 +53,7 @@ function disPlayMovies(){
                         .catch(error => console.log(error));
 
 
+                    $('.container').html("Loading...");
                     disPlayMovies();
 
                 })
@@ -79,6 +81,7 @@ function disPlayMovies(){
                         })
                         .catch(error => console.log(error));
 
+                    $('.container').html("Loading...");
                     disPlayMovies();
 
                 });
@@ -116,13 +119,14 @@ function addMovie() {
             $('#title').val("");
             $('#rating').val("");
             $('#details').val("");
+            $('.container').html("");
 
             console.log(response)
         })
         .catch(error => console.log(error));
 
 
-
+$('.container').html("Loading...");
     disPlayMovies();
 
 }
