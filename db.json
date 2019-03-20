@@ -1,11 +1,3 @@
 {
-  "movies": [
-
-    {
-      "title": "Iron Man",
-      "rating": "5",
-      "details": "Tony Stark",
-      "id": 1
-    }
-  ]
+  "movies": []
 }

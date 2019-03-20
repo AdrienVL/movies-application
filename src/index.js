@@ -2,12 +2,13 @@ const $ = require('jquery');
 //Modules link with api
 const {getMovies} = require('./api.js');
 
+
+
 function disPlayMovies(){
 
 
     $('.container').html("");
     getMovies().then((movies) => {
-
 
 
         movies.forEach(({title, rating, id, details}) => {
@@ -25,26 +26,42 @@ function disPlayMovies(){
 
 //Store the id of the movie to be deleted. Click on the delete button to get rid of movie from display.
             $('#' + id).click(function () {
+
                 console.log(id);
-                $('#delete').click(function () {
+                $('#title').val((title));
+                $('#rating').val((rating));
+                $('#details').val((details));
+
+                $('#delete').off().click(function () {
 
                     console.log('/api/movies/' + id);
+                    const url='/api/movies/' + id;
                     const options = {
                         method: 'DELETE',
 
                     };
-                    fetch('/api/movies/' + id, options)
-                        .then(response => console.log(response))
+                    fetch(url, options)
+                        .then(response => {
+                            $('#details').val("");
+                            $('#title').val("");
+                            $('#rating').val("");
+                            console.log(response)
+
+
+                        })
                         .catch(error => console.log(error));
+
 
                     disPlayMovies();
 
                 })
 
-                $('#edit').click(function () {
+                $('#edit').off().click(function () {
 
-                    console.log('/api/movies/');
-                    const detailsInput = {details: $('#details').val()};
+                    const detailsInput = {details: $('#details').val(),
+                                            title: $('#title').val(),
+                                            rating: $('#rating').val()};
+                    const url= '/api/movies/'+id;
                     const options = {
                         method: 'PUT',
                         headers: {
@@ -53,8 +70,13 @@ function disPlayMovies(){
                         body: JSON.stringify(detailsInput),
 
                     };
-                    fetch('/api/movies/'+id, options)
-                        .then(response => console.log(response))
+                    fetch(url, options)
+                        .then(response => {
+                            $('#details').val("");
+                            $('#title').val("");
+                            $('#rating').val("");
+                            console.log(response)
+                        })
                         .catch(error => console.log(error));
 
                     disPlayMovies();
@@ -65,13 +87,13 @@ function disPlayMovies(){
         });
 
 
+
     }).catch((error) => {
         alert('Oh no! Something went wrong.\nCheck the console for details.')
         console.log(error);
     });
 
-    // Infinity Loop
-    // disPlayMovies();
+
 
 }
 
