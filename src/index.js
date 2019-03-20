@@ -12,11 +12,14 @@ function disPlayMovies(){
     getMovies().then((movies) => {
 
 
+        $('.loading').remove();
+        $('.container').html("");
         movies.forEach(({title, rating, id, details}) => {
             console.log(`id#${id} - ${title} - rating: ${rating}- ${details}`);
 
 
-            $('.loading').remove();
+
+
             $('.container').append("<div id='" + id + "'>" +
                 'id: ' + id + ', ' +
                 'title: ' + title + ', ' +
