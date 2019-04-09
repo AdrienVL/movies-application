@@ -12,10 +12,10 @@ function disPlayMovies(){
     getMovies().then((movies) => {
 
 
-        $('.loading').remove();
+        // $('.loading').remove();
         $('.container').html("");
-        movies.forEach(({title, rating, id, details}) => {
-            console.log(`id#${id} - ${title} - rating: ${rating}- ${details}`);
+        movies.forEach(({title, rating, id, genre, details}) => {
+            console.log(`id#${id} - ${title} - rating: ${rating} - genre: ${genre} - ${details} `);
 
 
 
@@ -24,6 +24,7 @@ function disPlayMovies(){
                 'id: ' + id + ', ' +
                 'title: ' + title + ', ' +
                 'rating: ' + rating + ', ' +
+                'genre: ' + genre + ',' +
                 'details: ' + details +
                 '</div>');
 
@@ -34,7 +35,10 @@ function disPlayMovies(){
                 console.log(id);
                 $('#title').val((title));
                 $('#rating').val((rating));
+                $('#genre').val((genre));
                 $('#details').val((details));
+
+
 
                 $('#delete').off().click(function () {
 
@@ -49,6 +53,7 @@ function disPlayMovies(){
                             $('#details').val("");
                             $('#title').val("");
                             $('#rating').val("");
+                            $('#genre').val("");
                             console.log(response)
 
 
@@ -65,6 +70,7 @@ function disPlayMovies(){
 
                     const detailsInput = {details: $('#details').val(),
                                             title: $('#title').val(),
+                                            genre: $('#genre').val(),
                                             rating: $('#rating').val()};
                     const url= '/api/movies/'+id;
                     const options = {
@@ -79,6 +85,7 @@ function disPlayMovies(){
                         .then(response => {
                             $('#details').val("");
                             $('#title').val("");
+                            $('#genre').val("");
                             $('#rating').val("");
                             console.log(response)
                         })
@@ -108,7 +115,7 @@ function addMovie() {
 
 
 
-    const movieTitleRatingsDetails = {title: $('#title').val(), rating: $('#rating').val(), details: $('#details').val()};
+    const movieTitleRatingsDetails = {title: $('#title').val(), rating: $('#rating').val(), genre: $('#genre').val(), details: $('#details').val()};
     const url = '/api/movies';
     const options = {
         method: 'POST',
@@ -121,6 +128,7 @@ function addMovie() {
         .then(response => {
             $('#title').val("");
             $('#rating').val("");
+            $('#genre').val("");
             $('#details').val("");
             $('.container').html("");
 

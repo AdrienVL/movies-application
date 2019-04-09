@@ -2,9 +2,22 @@ html, body {
     height: 100%;
 }
 
+
 .container {
     position: relative;
-    top: 50%;
+    top: 25%;
     transform: translateY(-100%);
     text-align: center;
+
 }
+
+.container .loading{
+    width: 47px;
+    height: 47px;
+    background: url("http://i.stack.imgur.com/FhHRx.gif") no-repeat;
+    position:absolute;
+    left: 50%;
+
+}
+
+

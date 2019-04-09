@@ -1,10 +1,11 @@
 {
   "movies": [
     {
-      "details": "4qwdfwe",
-      "title": "4333",
-      "rating": "4qfwef",
-      "id": 4
+      "title": "asdfasdf",
+      "rating": "asdf",
+      "genre": "asdf",
+      "details": "sdf",
+      "id": 1
     }
   ]
 }
