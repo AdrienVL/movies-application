@@ -7,12 +7,13 @@ const {getMovies} = require('./api.js');
 
 function disPlayMovies(){
 
+//Add disable attribute to html and remove them after getMovies().then... Just for container
 
 
     getMovies().then((movies) => {
 
 
-        // $('.loading').remove();
+        // document.getElementsByTagName('<button>').disabled = false;
         $('.container').html("");
         movies.forEach(({title, rating, id, genre, details}) => {
             console.log(`id#${id} - ${title} - rating: ${rating} - genre: ${genre} - ${details} `);
@@ -61,7 +62,11 @@ function disPlayMovies(){
                         .catch(error => console.log(error));
 
 
-                    $('.container').html("Loading...");
+                    $('.container').html("");
+                    $('.container').append("<div class='loading'>" +
+                        '</div>');
+
+
                     disPlayMovies();
 
                 })
@@ -91,7 +96,9 @@ function disPlayMovies(){
                         })
                         .catch(error => console.log(error));
 
-                    $('.container').html("Loading...");
+                    $('.container').html("");
+                    $('.container').append("<div class='loading'>" +
+                        '</div>');
                     disPlayMovies();
 
                 });
@@ -137,7 +144,8 @@ function addMovie() {
         .catch(error => console.log(error));
 
 
-$('.container').html("Loading...");
+    $('.container').append("<div class='loading'>" +
+        '</div>');
     disPlayMovies();
 
 }
@@ -145,7 +153,7 @@ $('.container').html("Loading...");
 
 //-------------------------------------------------------------------------------------------------Displaying Movie------------------------------------------------------------------------//
 
-
+// document.getElementsByTagName('<button>').disabled = true;
 disPlayMovies();
 
 
