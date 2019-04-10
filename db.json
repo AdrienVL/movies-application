@@ -1,32 +1,3 @@
 {
-  "movies": [
-    {
-      "title": "asdfasdf",
-      "rating": "asdf",
-      "genre": "asdf",
-      "details": "2232asdf",
-      "id": 4
-    },
-    {
-      "details": "",
-      "title": "",
-      "genre": "",
-      "rating": "",
-      "id": 5
-    },
-    {
-      "title": "",
-      "rating": "",
-      "genre": "",
-      "details": "asdf",
-      "id": 6
-    },
-    {
-      "title": "",
-      "rating": "",
-      "genre": "",
-      "details": "",
-      "id": 7
-    }
-  ]
+  "movies": []
 }

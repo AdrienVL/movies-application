@@ -14,6 +14,9 @@ function disPlayMovies(){
 
     getMovies().then((movies) => {
 
+        $('#edit').prop('disabled', false);
+        $('#submit').prop('disabled', false);
+        $('#delete').prop('disabled', false);
 
 
         // document.getElementsByTagName('<button>').disabled = false;
@@ -46,6 +49,10 @@ function disPlayMovies(){
 
                 $('#delete').off().click(function () {
 
+                    $('#edit').prop('disabled', true);
+                    $('#submit').prop('disabled', true);
+                    $('#delete').prop('disabled', true);
+
                     console.log('/api/movies/' + id);
                     const url='/api/movies/' + id;
                     const options = {
@@ -75,8 +82,11 @@ function disPlayMovies(){
                 })
 
                 $('#edit').off().click(function () {
+                    $('#edit').prop('disabled', true);
+                    $('#submit').prop('disabled', true);
+                    $('#delete').prop('disabled', true);
 
-                    $('<button>').attr("disabled", true);
+
 
                     const detailsInput = {details: $('#details').val(),
                                             title: $('#title').val(),
@@ -158,6 +168,9 @@ function addMovie() {
 
 //-------------------------------------------------------------------------------------------------Displaying Movie------------------------------------------------------------------------//
 
+$('#edit').prop('disabled', true);
+$('#submit').prop('disabled', true);
+$('#delete').prop('disabled', true);
 
 disPlayMovies();
 
@@ -167,7 +180,9 @@ disPlayMovies();
 
 $('#submit').click(function () {
 
-
+    $('#edit').prop('disabled', true);
+    $('#submit').prop('disabled', true);
+    $('#delete').prop('disabled', true);
     return addMovie();
 });
 
