@@ -1,3 +1,5 @@
+
+
 const $ = require('jquery');
 //Modules link with api
 const {getMovies} = require('./api.js');
@@ -11,6 +13,7 @@ function disPlayMovies(){
 
 
     getMovies().then((movies) => {
+
 
 
         // document.getElementsByTagName('<button>').disabled = false;
@@ -72,6 +75,8 @@ function disPlayMovies(){
                 })
 
                 $('#edit').off().click(function () {
+
+                    $('<button>').attr("disabled", true);
 
                     const detailsInput = {details: $('#details').val(),
                                             title: $('#title').val(),
@@ -153,7 +158,7 @@ function addMovie() {
 
 //-------------------------------------------------------------------------------------------------Displaying Movie------------------------------------------------------------------------//
 
-// document.getElementsByTagName('<button>').disabled = true;
+
 disPlayMovies();
 
 
