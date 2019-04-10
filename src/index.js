@@ -1,37 +1,30 @@
-
-
 const $ = require('jquery');
 //Modules link with api
 const {getMovies} = require('./api.js');
 
 
+$('.buttons').prop('disabled', true);
+disPlayMovies();
 
-
-function disPlayMovies(){
+function disPlayMovies() {
 
 //Add disable attribute to html and remove them after getMovies().then... Just for container
 
 
     getMovies().then((movies) => {
 
-        $('#edit').prop('disabled', false);
-        $('#submit').prop('disabled', false);
-        $('#delete').prop('disabled', false);
+        $('.buttons').prop('disabled', false);
 
-
-        // document.getElementsByTagName('<button>').disabled = false;
         $('.container').html("");
         movies.forEach(({title, rating, id, genre, details}) => {
             console.log(`id#${id} - ${title} - rating: ${rating} - genre: ${genre} - ${details} `);
-
-
 
 
             $('.container').append("<div id='" + id + "'>" +
                 'id: ' + id + ', ' +
                 'title: ' + title + ', ' +
                 'rating: ' + rating + ', ' +
-                'genre: ' + genre + ',' +
+                'genre: ' + genre + ', ' +
                 'details: ' + details +
                 '</div>');
 
@@ -46,15 +39,12 @@ function disPlayMovies(){
                 $('#details').val((details));
 
 
-
                 $('#delete').off().click(function () {
 
-                    $('#edit').prop('disabled', true);
-                    $('#submit').prop('disabled', true);
-                    $('#delete').prop('disabled', true);
+                    $('.buttons').prop('disabled', true);
 
                     console.log('/api/movies/' + id);
-                    const url='/api/movies/' + id;
+                    const url = '/api/movies/' + id;
                     const options = {
                         method: 'DELETE',
 
@@ -82,17 +72,17 @@ function disPlayMovies(){
                 })
 
                 $('#edit').off().click(function () {
-                    $('#edit').prop('disabled', true);
-                    $('#submit').prop('disabled', true);
-                    $('#delete').prop('disabled', true);
+
+                    $('.buttons').prop('disabled', true);
 
 
-
-                    const detailsInput = {details: $('#details').val(),
-                                            title: $('#title').val(),
-                                            genre: $('#genre').val(),
-                                            rating: $('#rating').val()};
-                    const url= '/api/movies/'+id;
+                    const detailsInput = {
+                        details: $('#details').val(),
+                        title: $('#title').val(),
+                        genre: $('#genre').val(),
+                        rating: $('#rating').val()
+                    };
+                    const url = '/api/movies/' + id;
                     const options = {
                         method: 'PUT',
                         headers: {
@@ -117,10 +107,40 @@ function disPlayMovies(){
                     disPlayMovies();
 
                 });
+
+
             })
 
         });
 
+        $('#sortTitle').off().click(function () {
+
+
+
+            getMovies().then((movies) => {
+
+                $('.container').html("");
+                movies.forEach(({title, rating, id, genre, details}) => {
+                    console.log(`id#${id} - ${title} - rating: ${rating} - genre: ${genre} - ${details} `);
+
+
+                    $('.container').append("<div id='" + id + "'>" +
+                        'id: ' + id + ', ' +
+                        'title: ' + title + ', ' +
+                        'rating: ' + rating + ', ' +
+                        'genre: ' + genre + ', ' +
+                        'details: ' + details +
+                        '</div>');
+
+                });
+
+
+            }).catch((error) => {
+                alert('Oh no! Something went wrong.\nCheck the console for details.')
+                console.log(error);
+            });
+
+        });
 
 
     }).catch((error) => {
@@ -129,15 +149,17 @@ function disPlayMovies(){
     });
 
 
-
 }
 
-//-----------------------------------------------------------------------------------------------------Add Movie--------------------------------------------------------------------------//
 function addMovie() {
 
 
-
-    const movieTitleRatingsDetails = {title: $('#title').val(), rating: $('#rating').val(), genre: $('#genre').val(), details: $('#details').val()};
+    const movieTitleRatingsDetails = {
+        title: $('#title').val(),
+        rating: $('#rating').val(),
+        genre: $('#genre').val(),
+        details: $('#details').val()
+    };
     const url = '/api/movies';
     const options = {
         method: 'POST',
@@ -152,13 +174,12 @@ function addMovie() {
             $('#rating').val("");
             $('#genre').val("");
             $('#details').val("");
-            $('.container').html("");
 
             console.log(response)
         })
         .catch(error => console.log(error));
 
-
+    $('.container').html("");
     $('.container').append("<div class='loading'>" +
         '</div>');
     disPlayMovies();
@@ -166,25 +187,24 @@ function addMovie() {
 }
 
 
-//-------------------------------------------------------------------------------------------------Displaying Movie------------------------------------------------------------------------//
-
-$('#edit').prop('disabled', true);
-$('#submit').prop('disabled', true);
-$('#delete').prop('disabled', true);
-
-disPlayMovies();
-
-
-
-//------------------------------------------------------------------------------------------------Buttons--------------------------------------------------------------------------------//
-
 $('#submit').click(function () {
 
-    $('#edit').prop('disabled', true);
-    $('#submit').prop('disabled', true);
-    $('#delete').prop('disabled', true);
+
+    $('.buttons').prop('disabled', true);
     return addMovie();
 });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
