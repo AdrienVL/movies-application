@@ -116,23 +116,50 @@ function disPlayMovies() {
         $('#sortTitle').off().click(function () {
 
 
-
             getMovies().then((movies) => {
 
                 $('.container').html("");
+
+
+
+                let alphabeticalCharacter = 100;
+
                 movies.forEach(({title, rating, id, genre, details}) => {
-                    console.log(`id#${id} - ${title} - rating: ${rating} - genre: ${genre} - ${details} `);
+
+                    var firstLetter = title.substring(0, 1);
+
+                    console.log(firstLetter);
+
+                    console.log(firstLetter.charCodeAt(0));
+
+                    if (firstLetter.charCodeAt(0) < alphabeticalCharacter) {
+
+                        alphabeticalCharacter = firstLetter.charCodeAt((0));
 
 
-                    $('.container').append("<div id='" + id + "'>" +
-                        'id: ' + id + ', ' +
-                        'title: ' + title + ', ' +
-                        'rating: ' + rating + ', ' +
-                        'genre: ' + genre + ', ' +
-                        'details: ' + details +
-                        '</div>');
+
+                    } else {
+
+
+                        $('.container').append("<div id='" + id + "'>" +
+                            'id: ' + id + ', ' +
+                            'title: ' + title + ', ' +
+                            'rating: ' + rating + ', ' +
+                            'genre: ' + genre + ', ' +
+                            'details: ' + details +
+                            '</div>');
+
+
+                    }
+
+
+
+
+
 
                 });
+
+                console.log(alphabeticalCharacter);
 
 
             }).catch((error) => {
@@ -193,25 +220,6 @@ $('#submit').click(function () {
     $('.buttons').prop('disabled', true);
     return addMovie();
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
