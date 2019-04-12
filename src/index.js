@@ -122,45 +122,63 @@ function disPlayMovies() {
 
 
 
-                let alphabeticalCharacter = 100;
+                var tempArray = [movies.length];
+                var alphabeticalCharacter;
+                var lowestChar = 100;
+                var finalArray = [];
+                var lowestNumberIndex;
+                var originalArrayObjectsLength = movies.length;
 
-                movies.forEach(({title, rating, id, genre, details}) => {
+                var count = 0;
 
-                    var firstLetter = title.substring(0, 1);
+                for(var i = 0; i < movies.length; i++){
 
-                    console.log(firstLetter);
+                    tempArray[i] = movies[i].title;
+                }
+                console.log(tempArray);
 
-                    console.log(firstLetter.charCodeAt(0));
+                do {
 
-                    if (firstLetter.charCodeAt(0) < alphabeticalCharacter) {
+
+                    movies.forEach(({title, rating, id, genre, details}) => {
+
+
+
+
+                        var firstLetter = title.substring(0, 1);
 
                         alphabeticalCharacter = firstLetter.charCodeAt((0));
 
 
+                        if(lowestChar < alphabeticalCharacter){
 
-                    } else {
+                            lowestChar = alphabeticalCharacter;
+
+                        }
+
+                        //
+                        //
+                        //
+                        //
+                        //
+                        //
+                        //
+                        //
+                        //
+                        //
+                        //         $('.container').append("<div id='" + id + "'>" +
+                        //             'id: ' + id + ', ' +
+                        //             'title: ' + title + ', ' +
+                        //             'rating: ' + rating + ', ' +
+                        //             'genre: ' + genre + ', ' +
+                        //             'details: ' + details +
+                        //             '</div>');
 
 
-                        $('.container').append("<div id='" + id + "'>" +
-                            'id: ' + id + ', ' +
-                            'title: ' + title + ', ' +
-                            'rating: ' + rating + ', ' +
-                            'genre: ' + genre + ', ' +
-                            'details: ' + details +
-                            '</div>');
+                    });
 
 
-                    }
-
-
-
-
-
-
-                });
-
-                console.log(alphabeticalCharacter);
-
+                }while(true);
 
             }).catch((error) => {
                 alert('Oh no! Something went wrong.\nCheck the console for details.')
