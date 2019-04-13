@@ -122,63 +122,76 @@ function disPlayMovies() {
 
 
 
+
                 var tempArray = [movies.length];
                 var alphabeticalCharacter;
                 var lowestChar = 100;
-                var finalArray = [];
                 var lowestNumberIndex;
+                var finalArray = [];
                 var originalArrayObjectsLength = movies.length;
-
                 var count = 0;
+                var finalArrayObjectPush;
+
+                console.log(movies);
+
 
                 for(var i = 0; i < movies.length; i++){
 
-                    tempArray[i] = movies[i].title;
+                    tempArray[i] = movies[i];
                 }
-                console.log(tempArray);
 
                 do {
 
 
-                    movies.forEach(({title, rating, id, genre, details}) => {
+
+                    for(var i = 0; i < tempArray.length; i++){
 
 
-
-
-                        var firstLetter = title.substring(0, 1);
+                        var firstLetter = tempArray[i].title.substring(0, 1);
 
                         alphabeticalCharacter = firstLetter.charCodeAt((0));
 
 
-                        if(lowestChar < alphabeticalCharacter){
+
+                        if(alphabeticalCharacter < lowestChar){
 
                             lowestChar = alphabeticalCharacter;
 
+                            lowestNumberIndex = i;
+
+                            finalArrayObjectPush = tempArray[i];
+
+
                         }
 
-                        //
-                        //
-                        //
-                        //
-                        //
-                        //
-                        //
-                        //
-                        //
-                        //
-                        //         $('.container').append("<div id='" + id + "'>" +
-                        //             'id: ' + id + ', ' +
-                        //             'title: ' + title + ', ' +
-                        //             'rating: ' + rating + ', ' +
-                        //             'genre: ' + genre + ', ' +
-                        //             'details: ' + details +
-                        //             '</div>');
+                    }
+
+                    console.log(lowestNumberIndex);
+                    tempArray.splice(lowestNumberIndex,1);
+                    console.log(tempArray);
+                    finalArray.push(finalArrayObjectPush);
+                    lowestChar = 100;
+                    count++;
 
 
-                    });
+                }while(count < originalArrayObjectsLength);
+
+                console.log(tempArray)
+                console.log(finalArray);
+
+                finalArray.forEach(({title, rating, id, genre, details}) => {
 
 
-                }while(true);
+                        $('.container').append("<div id='" + id + "'>" +
+                            'id: ' + id + ', ' +
+                            'title: ' + title + ', ' +
+                            'rating: ' + rating + ', ' +
+                            'genre: ' + genre + ', ' +
+                            'details: ' + details +
+                            '</div>');
+
+                });
+
 
             }).catch((error) => {
                 alert('Oh no! Something went wrong.\nCheck the console for details.')
