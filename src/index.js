@@ -170,11 +170,11 @@ function disPlayMovies() {
                         } else if(alphabeticalCharacter === lowestChar){
 
 
-                            for(var j = 0; j < tempArray[i].title.length; j++){
+                            for(var j = 1; j < tempArray[i].title.length; j++){
 
                                 var letter = tempArray[i].title.substring(j,j+1).toUpperCase();
                                 alphabeticalCharacter = letter.charCodeAt(0);
-                                var letterFromFormer = tempArray[i-1].title.substring(j,j+1).toUpperCase();
+                                var letterFromFormer = tempArray[lowestNumberIndex].title.substring(j,j+1).toUpperCase();
                                 alphabeticalCharacterFormer = letterFromFormer.charCodeAt(0);
 
                                     console.log(letter);
@@ -183,15 +183,14 @@ function disPlayMovies() {
                                 console.log(alphabeticalCharacterFormer);
 
                                if( alphabeticalCharacterFormer < alphabeticalCharacter){
+                                    console.log('hi')
 
-
-                                    lowestNumberIndex = i;
-                                    finalArrayObjectPush = tempArray[i];
+                                    finalArrayObjectPush = tempArray[lowestNumberIndex];
 
                                    break;
 
                                 } else if (alphabeticalCharacterFormer > alphabeticalCharacter){
-
+                                            console.log('hi2')
                                     lowestNumberIndex = i;
                                     finalArrayObjectPush = tempArray[i];
 
@@ -251,12 +250,14 @@ function disPlayMovies() {
 
                 var tempArray = [movies.length];
                 var alphabeticalCharacter;
+                var alphabeticalCharacterFormer;
                 var lowestChar = 100;
                 var lowestNumberIndex;
                 var finalArray = [];
                 var originalArrayObjectsLength = movies.length;
                 var count = 0;
                 var finalArrayObjectPush;
+
 
                 console.log(movies);
 
@@ -288,14 +289,62 @@ function disPlayMovies() {
                             finalArrayObjectPush = tempArray[i];
 
 
+
+                        } else if(alphabeticalCharacter === lowestChar){
+
+
+                            for(var j = 1; j < tempArray[i].genre.length; j++){
+
+
+                                console.log("Lowest index: " + lowestNumberIndex)
+                                console.log("i is: " + i);
+                                var letter = tempArray[i].genre.substring(j,j+1).toUpperCase();
+                                alphabeticalCharacter = letter.charCodeAt(0);
+                                var letterFromFormer = tempArray[lowestNumberIndex].genre.substring(j,j+1).toUpperCase();
+                                alphabeticalCharacterFormer = letterFromFormer.charCodeAt(0);
+
+                                console.log(tempArray[i].genre);
+                                console.log(letter);
+                                console.log(alphabeticalCharacter);
+                                console.log(tempArray[i-1].genre);
+                                console.log(letterFromFormer);
+                                console.log(alphabeticalCharacterFormer);
+
+                                if( alphabeticalCharacterFormer < alphabeticalCharacter){
+
+                                    console.log("SHOULD NOT")
+
+                                    finalArrayObjectPush = tempArray[lowestNumberIndex];
+
+
+                                    break;
+
+                                } else if (alphabeticalCharacterFormer > alphabeticalCharacter){
+
+                                    console.log("i:" + i);
+                                    lowestNumberIndex = i ;
+                                    finalArrayObjectPush = tempArray[i];
+                                    console.log(tempArray[i]);
+
+
+                                    break;
+
+                                }
+
+
+                            }
+
+
                         }
 
                     }
+
 
                     tempArray.splice(lowestNumberIndex,1);
                     finalArray.push(finalArrayObjectPush);
                     lowestChar = 100;
                     count++;
+                    console.log(finalArrayObjectPush);
 
 
                 }while(count < originalArrayObjectsLength);
