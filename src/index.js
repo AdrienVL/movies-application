@@ -384,15 +384,12 @@ function disPlayMovies() {
 
 
                 var tempArray = [movies.length];
-                var alphabeticalCharacter;
-                var lowestChar = 100;
-                var lowestNumberIndex;
                 var finalArray = [];
                 var originalArrayObjectsLength = movies.length;
                 var count = 0;
                 var finalArrayObjectPush;
-
-                console.log(movies);
+                var largestNumber = 0;
+                var largestNumberIndex;
 
 
                 for(var i = 0; i < movies.length; i++){
@@ -403,34 +400,28 @@ function disPlayMovies() {
                 do {
 
 
-
                     for(var i = 0; i < tempArray.length; i++){
 
-
-                        var firstLetter = tempArray[i].genre.substring(0, 1).toUpperCase();
-
-                        alphabeticalCharacter = firstLetter.charCodeAt((0));
+                        var rating = Number(tempArray[i].rating);
 
 
+                        if(rating > largestNumber) {
 
-                        if(alphabeticalCharacter < lowestChar) {
+                            largestNumber = rating;
 
-                            lowestChar = alphabeticalCharacter;
 
-                            lowestNumberIndex = i;
+                            largestNumberIndex = i;
 
                             finalArrayObjectPush = tempArray[i];
-
 
                         }
 
                     }
 
-                    tempArray.splice(lowestNumberIndex,1);
+                    tempArray.splice(largestNumberIndex,1);
                     finalArray.push(finalArrayObjectPush);
-                    lowestChar = 100;
+                    largestNumber = 0;
                     count++;
-
 
                 }while(count < originalArrayObjectsLength);
 
