@@ -113,7 +113,133 @@ function disPlayMovies() {
 
         });
 
+        //Work on edge cases: bits and parts of titles being same
+
         $('#sortTitle').off().click(function () {
+
+
+            getMovies().then((movies) => {
+
+                $('.container').html("");
+
+
+
+
+                var tempArray = [movies.length];
+                var alphabeticalCharacter;
+                var alphabeticalCharacterFormer;
+                var lowestChar = 100;
+                var lowestNumberIndex;
+                var finalArray = [];
+                var originalArrayObjectsLength = movies.length;
+                var count = 0;
+                var finalArrayObjectPush;
+
+
+                console.log(movies);
+
+
+                for(var i = 0; i < movies.length; i++){
+
+                    tempArray[i] = movies[i];
+                }
+
+                do {
+
+
+
+                    for(var i = 0; i < tempArray.length; i++){
+
+
+                        var firstLetter = tempArray[i].title.substring(0, 1).toUpperCase();
+
+                        alphabeticalCharacter = firstLetter.charCodeAt((0));
+
+
+
+                        if(alphabeticalCharacter < lowestChar) {
+
+                            lowestChar = alphabeticalCharacter;
+
+                            lowestNumberIndex = i;
+
+                            finalArrayObjectPush = tempArray[i];
+
+
+
+                        } else if(alphabeticalCharacter === lowestChar){
+
+
+                            for(var j = 0; j < tempArray[i].title.length; j++){
+
+                                var letter = tempArray[i].title.substring(j,j+1).toUpperCase();
+                                alphabeticalCharacter = letter.charCodeAt(0);
+                                var letterFromFormer = tempArray[i-1].title.substring(j,j+1).toUpperCase();
+                                alphabeticalCharacterFormer = letterFromFormer.charCodeAt(0);
+
+                                    console.log(letter);
+                                console.log(alphabeticalCharacter);
+                                    console.log(letterFromFormer);
+                                console.log(alphabeticalCharacterFormer);
+
+                               if( alphabeticalCharacterFormer < alphabeticalCharacter){
+
+
+                                    lowestNumberIndex = i;
+                                    finalArrayObjectPush = tempArray[i];
+
+                                   break;
+
+                                } else if (alphabeticalCharacterFormer > alphabeticalCharacter){
+
+                                    lowestNumberIndex = i;
+                                    finalArrayObjectPush = tempArray[i];
+
+                                    break;
+
+                                }
+
+
+                            }
+
+
+                        }
+
+                    }
+
+                    tempArray.splice(lowestNumberIndex,1);
+                    finalArray.push(finalArrayObjectPush);
+                    lowestChar = 100;
+                    count++;
+
+
+                }while(count < originalArrayObjectsLength);
+
+                console.log(tempArray)
+                console.log(finalArray);
+
+                finalArray.forEach(({title, rating, id, genre, details}) => {
+
+
+                        $('.container').append("<div id='" + id + "'>" +
+                            'id: ' + id + ', ' +
+                            'title: ' + title + ', ' +
+                            'rating: ' + rating + ', ' +
+                            'genre: ' + genre + ', ' +
+                            'details: ' + details +
+                            '</div>');
+
+                });
+
+
+            }).catch((error) => {
+                alert('Oh no! Something went wrong.\nCheck the console for details.')
+                console.log(error);
+            });
+
+        });
+
+        $('#sortGenre').off().click(function () {
 
 
             getMovies().then((movies) => {
@@ -147,13 +273,13 @@ function disPlayMovies() {
                     for(var i = 0; i < tempArray.length; i++){
 
 
-                        var firstLetter = tempArray[i].title.substring(0, 1);
+                        var firstLetter = tempArray[i].genre.substring(0, 1).toUpperCase();
 
                         alphabeticalCharacter = firstLetter.charCodeAt((0));
 
 
 
-                        if(alphabeticalCharacter < lowestChar){
+                        if(alphabeticalCharacter < lowestChar) {
 
                             lowestChar = alphabeticalCharacter;
 
@@ -166,9 +292,7 @@ function disPlayMovies() {
 
                     }
 
-                    console.log(lowestNumberIndex);
                     tempArray.splice(lowestNumberIndex,1);
-                    console.log(tempArray);
                     finalArray.push(finalArrayObjectPush);
                     lowestChar = 100;
                     count++;
@@ -182,13 +306,98 @@ function disPlayMovies() {
                 finalArray.forEach(({title, rating, id, genre, details}) => {
 
 
-                        $('.container').append("<div id='" + id + "'>" +
-                            'id: ' + id + ', ' +
-                            'title: ' + title + ', ' +
-                            'rating: ' + rating + ', ' +
-                            'genre: ' + genre + ', ' +
-                            'details: ' + details +
-                            '</div>');
+                    $('.container').append("<div id='" + id + "'>" +
+                        'id: ' + id + ', ' +
+                        'title: ' + title + ', ' +
+                        'rating: ' + rating + ', ' +
+                        'genre: ' + genre + ', ' +
+                        'details: ' + details +
+                        '</div>');
+
+                });
+
+
+            }).catch((error) => {
+                alert('Oh no! Something went wrong.\nCheck the console for details.')
+                console.log(error);
+            });
+
+        });
+
+        $('#sortRating').off().click(function () {
+
+
+            getMovies().then((movies) => {
+
+                $('.container').html("");
+
+
+
+
+                var tempArray = [movies.length];
+                var alphabeticalCharacter;
+                var lowestChar = 100;
+                var lowestNumberIndex;
+                var finalArray = [];
+                var originalArrayObjectsLength = movies.length;
+                var count = 0;
+                var finalArrayObjectPush;
+
+                console.log(movies);
+
+
+                for(var i = 0; i < movies.length; i++){
+
+                    tempArray[i] = movies[i];
+                }
+
+                do {
+
+
+
+                    for(var i = 0; i < tempArray.length; i++){
+
+
+                        var firstLetter = tempArray[i].genre.substring(0, 1).toUpperCase();
+
+                        alphabeticalCharacter = firstLetter.charCodeAt((0));
+
+
+
+                        if(alphabeticalCharacter < lowestChar) {
+
+                            lowestChar = alphabeticalCharacter;
+
+                            lowestNumberIndex = i;
+
+                            finalArrayObjectPush = tempArray[i];
+
+
+                        }
+
+                    }
+
+                    tempArray.splice(lowestNumberIndex,1);
+                    finalArray.push(finalArrayObjectPush);
+                    lowestChar = 100;
+                    count++;
+
+
+                }while(count < originalArrayObjectsLength);
+
+                console.log(tempArray)
+                console.log(finalArray);
+
+                finalArray.forEach(({title, rating, id, genre, details}) => {
+
+
+                    $('.container').append("<div id='" + id + "'>" +
+                        'id: ' + id + ', ' +
+                        'title: ' + title + ', ' +
+                        'rating: ' + rating + ', ' +
+                        'genre: ' + genre + ', ' +
+                        'details: ' + details +
+                        '</div>');
 
                 });
 
